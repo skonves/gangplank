@@ -1,6 +1,7 @@
 'use strict';
 
 module.exports = {
-	middleware: require('./lib/middleware'),
+	requests: require('./lib/middleware'),
+	responses: require('./lib/response-middleware'),
 	errorHandler: require('./lib/error-handler')
 };

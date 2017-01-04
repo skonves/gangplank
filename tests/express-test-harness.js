@@ -10,7 +10,7 @@ const gangplank = require('../index');
 describe('request validator', function () {
 	// SETUP
 	const app = express();
-	app.use(gangplank.middleware({
+	app.use(gangplank.requests({
 		swaggerDefinition: {
 			swagger: '2.0',
 			info: { version: '1.0.0', title: 'TEST' },
@@ -32,8 +32,10 @@ describe('request validator', function () {
 			}
 		}
 	}));
+	app.use(gangplank.responses());
 	app.get('/test', (req, res) => {
-		res.sendStatus(200);
+		//res.status(200).send({message: 'asdf'});
+		res.json({ message: 'asdf' });
 	});
 	app.use(gangplank.errorHandler);
 
@@ -48,7 +50,6 @@ describe('request validator', function () {
 			assert.notOk(err);
 			assert.ok(res.body);
 			assert.equal(res.statusCode, expectedStatusCode);
-
 			done();
 		})
 	});
