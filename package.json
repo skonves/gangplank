@@ -1,7 +1,7 @@
 {
   "name": "gangplank",
   "version": "0.0.1",
-  "description": "Express middleware to enforce swagger configuration",
+  "description": "Robust, unopinionated, Swagger-driven validation for Express APIs",
   "main": "index.js",
   "scripts": {
     "test": "mocha ./tests"
