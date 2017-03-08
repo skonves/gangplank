@@ -1,5 +1,9 @@
 # Gangplank
-Robust, unopinionated, Swagger-driven validation for Express APIs
+Robust, unopinionated, spec-driven validation for Swagger and Express APIs
+
+* Robust: Heavily tested to support Swagger (aka OpenAPI) v2.0
+* Unopinionated: Works as an Express middleware without forcing any particular code patterns or error message formats.
+* Spec-driven: Facilitates rigorously defining an API spec once in a machine readable format, and then using that spec to perform all validation without needing to hand-write or generate any more validation code.
 
 ## Quick Start
 Install using npm: `npm install gangplank`;
