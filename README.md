@@ -66,9 +66,9 @@ The previous example can be simplified as follows:
 
 ``` js
 app.get('/accounts/:id/orders', (req, res) => {
-	const accountId = req.gangplank.accountId;
-	const offset = req.gangplank.offset;
-	const limit = req.gangplank.limit;
+	const accountId = req.gangplank.params.id;
+	const offset = req.gangplank.params.offset;
+	const limit = req.gangplank.params.limit;
 
 	ordersSerivce.getOrders(accountId, offset, limit, (err, result) => {
 		if (err) {
