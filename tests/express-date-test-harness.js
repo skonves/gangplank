@@ -34,7 +34,7 @@ describe('date and datetime tests', function () {
 							in: 'query',
 							description: 'name',
 							type: 'string',
-							format: 'date-time',
+							format: 'datetime',
 							required: false
 						}
 					],
@@ -50,14 +50,16 @@ describe('date and datetime tests', function () {
 		app.use(bodyParser.json());
 		app.use(gangplank.requests({ swaggerDefinition }));
 		app.get('/test', (req, res) => {
-
-			// ASSERT
-			assert.isTrue(req.gangplank.params.date instanceof Date);
-			assert.isTrue(req.gangplank.params.datetime instanceof Date);
-			res.send();
+			const status = req.gangplank.params.date instanceof Date && req.gangplank.params.datetime instanceof Date ? 200 : 400;
+			res.sendStatus(status);
 		});
 
 		// ACT
-		request(app).get('/test?date=2016-07-11&datetime=2016-07-11T11:22:33.444Z').end((err, res) => done())
+		request(app).get('/test?date=2016-07-11&datetime=2016-07-11T11:22:33.444Z').end((err, res) => {
+
+			// ASSERT
+			assert.equal(res.statusCode, 200);
+			done();
+		})
 	});
 });
