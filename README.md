@@ -6,30 +6,43 @@ Robust, unopinionated, spec-driven validation for Swagger and Express APIs
 * Spec-driven: Facilitates rigorously defining an API spec once in a machine readable format, and then using that spec to perform all validation without needing to hand-write or generate any more validation code.
 
 ## Quick Start
-Install using npm: `npm install gangplank`;
+1. Install using npm: `npm install gangplank`;
 
-Wire up the validation and error handling middlewares:
+1. Add middleware:
+
+	``` js
+	var spec = require('./swagger.json');
+	app.use(gangplank.requests({ swaggerDefinition: spec }));
+	```
+
+1. Add error handler:
+
+	``` js
+	// Included handler returns errors in a JSON API style schema
+	// (See below more info)
+	app.use(gangplank.errorHandler);
+	```
+
+Everything put together:
 
 ``` js
 var express = require('express');
 var gangplank = require('gangplank');
 
-var swaggerDefinition = require('{path to your swagger definition}');
-
 var app = express();
 
-// Validates requests based on the swagger definition
-app.use(gangplank.requests({ swaggerDefinition }));
+var spec = require('./swagger.json');
+app.use(gangplank.requests({ swaggerDefinition: spec }));
 
 // TODO: register routes here
 
-// Returns errors in a JSON API style schema
+// Included handler returns errors in a JSON API style schema
+// (See below more info)
 app.use(gangplank.errorHandler);
 
 app.listen(3000, function () {
-	console.log(`listening on port 3000`)
-})
-
+	console.log(`listening on port 3000`);
+});
 ```
 
 ## Parameter Access
