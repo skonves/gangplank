@@ -337,32 +337,35 @@ describe('express-utility', function () {
 					param2: 'value2'
 				}
 			};
-			const paramName = 'param1';
-			const expected = 'value1';
-
-			// Act
-			const result = sut.getValueFromBody(request, paramName);
-
-			// Assert
-			assert.equal(expected, result);
-		});
-
-		it('does not find missing value', function () {
-			// Arrange
-			const request = {
-				body: {
-					param1: 'value1',
-					param2: 'value2'
-				}
+			const paramName = 'any value';
+			const expected = {
+				param1: 'value1',
+				param2: 'value2'
 			};
-			const paramName = 'notAValidParamName';
 
 			// Act
 			const result = sut.getValueFromBody(request, paramName);
 
 			// Assert
-			assert.notOk(result);
+			assert.deepEqual(expected, result);
 		});
+
+		// it('does not find missing value', function () {
+		// 	// Arrange
+		// 	const request = {
+		// 		body: {
+		// 			param1: 'value1',
+		// 			param2: 'value2'
+		// 		}
+		// 	};
+		// 	const paramName = 'notAValidParamName';
+
+		// 	// Act
+		// 	const result = sut.getValueFromBody(request, paramName);
+
+		// 	// Assert
+		// 	assert.notOk(result);
+		// });
 	});
 
 	describe('getRouteInfo(url, method, swaggerDefinition)', function () {
