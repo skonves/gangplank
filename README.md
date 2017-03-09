@@ -158,4 +158,5 @@ app.use(gangplank.errorHandler);
 Validation of response messages is on the road map for this project, but has not yet been implemented.
 
 ## Contributing
-// TODO
+
+See our [Contributing Guidelines](./CONTRIBUTING.md)
