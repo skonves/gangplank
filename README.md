@@ -5,6 +5,10 @@ Robust, unopinionated, spec-driven validation for Swagger and Express APIs
 * Unopinionated: Works as an Express middleware without forcing any particular code patterns or error message formats.
 * Spec-driven: Facilitates rigorously defining an API spec once in a machine readable format, and then using that spec to perform all validation without needing to hand-write or generate any more validation code.
 
+Things that fall outside the scope of the project:
+* Code-gen functionality.  There are already several fantastic tools for scaffolding ExpressJs projects, but with this project, we want to stick to just validation.
+* Features that don't derive from the Swagger Specification.
+
 ## Quick Start
 1. Install using npm: `npm install gangplank`
 
