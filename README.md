@@ -18,7 +18,7 @@ Robust, unopinionated, spec-driven validation for Swagger and Express APIs
 1. Add error handler:
 
 	``` js
-	// Included handler returns errors in a JSON API style schema
+	// Gangplank's default error handler returns errors in a JSON API style schema
 	// (See below more info)
 	app.use(gangplank.errorHandler);
 	```
@@ -36,7 +36,7 @@ app.use(gangplank.requests({ swaggerDefinition: spec }));
 
 // TODO: register routes here
 
-// Included handler returns errors in a JSON API style schema
+// Gangplank's default error handler returns errors in a JSON API style schema
 // (See below more info)
 app.use(gangplank.errorHandler);
 
@@ -107,17 +107,55 @@ In the above example, the value of `userId` is trivially just the string value f
 
 Note that while Gangplank will include the body parameter, `body-parser` or another similar middleware must be run before `app.use(gangplank.requests(options));` in order for the body content to be accessible.  If the body is not parsed, it will not be found and will likely fail validation due to a missing parameter.
 
-## Request validation
-// TODO
+## Error handling
+
+In the event that a request does not validate per `swagger.json`, the request validation middleware will pass an Array containing all errors to the `next()` function.  Validation errors will occur for one of three reasons:
+
+### Route not found
+The request verb and URI do not match an operation defined in the spec.
+
+``` json
+{
+	"route": "/users/12345/billing-info",
+	"notFound": true
+}
+```
+
+Note that even if a route handler is added to the Express `app`, if the operation verb and path are not defined in `swagger.json`, Gangplank will consider the route to not exist.  Conversely, if the an operation is defined in `swagger.json` but not in the Express `app`, Gangplank will not create an error object, and Express will handle it with its default missing route behavior. 
+
+### Missing parameter
+The request does not contain a parameter defined as required in the spec.
+
+``` json
+{
+	"parameter": "id",
+	"location": "path",
+	"notFound": true
+}
+```
+
+### Bad parameter
+A parameter is contained in the request, but does not meet the criteria in the spec.
+
+``` json
+{
+	"parameter": "id",
+	"errors": []
+}
+```
+
+The Swagger 2.0 specification is largely based on JSON Schema v4, and Gangplank relies heavily on the `jsonschema` package under the hood to perform validation.  Because of this, the `errors` property in a Bad Parameter error is simply a collection of errors returned from the json schema validator.
+
+## Default Error Handler
+By default, Gangplank is very unopinionated in how validation errors are handled.  Errors are passed as an array via the `next()` function which allows developers to implement error handling in their preferred idiomatic Express style.  However, for convenience, Gangplank includes an error handling middleware that converts the Gangplank error objects to the JSON API Error format:
+
+``` js
+app.use(gangplank.errorHandler);
+```
 
 ## Response validation
-// TODO
 
-## Default Error Handling
-Gangplank provides a default error handler
-
-## Custom Error handling
-// TODO
+Validation of response messages is on the road map for this project, but has not yet been implemented.
 
 ## Contributing
 // TODO
