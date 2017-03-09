@@ -6,7 +6,7 @@ Robust, unopinionated, spec-driven validation for Swagger and Express APIs
 * Spec-driven: Facilitates rigorously defining an API spec once in a machine readable format, and then using that spec to perform all validation without needing to hand-write or generate any more validation code.
 
 ## Quick Start
-1. Install using npm: `npm install gangplank`;
+1. Install using npm: `npm install gangplank`
 
 1. Add middleware:
 
@@ -47,64 +47,74 @@ app.listen(3000, function () {
 
 ## Parameter Access
 
-One of the common boilerplate features of route handlers is code to find and validate incoming parameters.
-Additionally, numeric parameters that are passed via the query string or in a header need to be cast as
-a `Number`.  Route handlers also tend to become responsible for enforcing default values.
+Gangplank provides access to validated, type-cast parameters on the request via `req.gangplank.params`.  For example, an integer parameter passed via the query string is guarenteed to be a valid value and will be cast to a `Number` object.  This precludes some of the most common boilerplate code in ExpressJS route handlers: guard clauses for validating and casting parameters.  Additionally, all parameters from all sources (path, query, body, header, and/or forms) are included in this single object.  Parameter values can still be retrieved from their original locations (eg. `req.params`, `req.get()` etc), but those values will be in their original string format.
 
-Take for example the following route handler:
+Example swagger.json:
 
-``` js
-app.get('/accounts/:id/orders', (req, res) => {
-	const accountId = req.params.id;
-	const offset = Number(req.query.offset || 0);
-	const limit = Number(req.query.limit || 25);
-
-	if (offset >= 0 && limit > 0 && limit <= 100) {
-		res.status(400).json({ message: 'Bad request' });
-	} else {
-		ordersSerivce.getOrders(accountId, offset, limit, (err, result) => {
-			if (err) {
-				res.status(500).json({ message: 'Error fetching orders' });
-			} else {
-				res.status(200).json({ orders: result.orders });
+``` json
+{
+	"swagger": "2.0",
+	"paths": {
+		"/users/{id}/widgets": {
+			"get": {
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"type": "string",
+						"required": true
+					},
+					{
+						"name": "offset",
+						"in": "query",
+						"type": "integer",
+						"required": false,
+						"default": 100,
+						"minimum": 1,
+						"maximum": 1000
+					},
+					{
+						"name": "limit",
+						"in": "query",
+						"type": "integer",
+						"required": false,
+						"default": 0,
+						"minimum": 0
+					}
+				]
 			}
-		});
+		}
 	}
-});
+}
 ```
 
-The bulk of that route handler focuses on something other that it's main purpose: to get orders.
-
-By specifying those parameters in swagger, Gangplank will not only find, convert, and/or validate parameters
-from the request, but it will add a `gangplank` object to the request which contains the validated parameters cast to
-their correct types.
-
-The previous example can be simplified as follows:
+The associated route handler is as simple as:
 
 ``` js
-app.get('/accounts/:id/orders', (req, res) => {
-	const accountId = req.gangplank.params.id;
-	const offset = req.gangplank.params.offset;
-	const limit = req.gangplank.params.limit;
+app.get('/users/:id/widgets', (req, res, next) => {
+	const userId = req.gangplank.params.id;      // String
+	const offset = req.gangplank.params.offset;  // Number
+	const limit = req.gangplank.params.limit;    // Number
 
-	ordersSerivce.getOrders(accountId, offset, limit, (err, result) => {
-		if (err) {
-			res.status(500).json({ message: 'Error fetching orders' });
-		} else {
-			res.status(200).json({ orders: result.orders });
-		}
-	});
+	// TODO: add logic here
+
+	res.status(501).send();
 });
 ```
 
-This this example, `offset` and `limit` don't need to be converted as they will be in the correct range and will have 
-default values set if they were not passed by the consumer.
+In the above example, the value of `userId` is trivially just the string value from the path, but `offset` and `limit` will be `Number` objects guarenteed to be within the correct range.  Also, because they are not required and have default values, if the consumer does not include them in the query string, `offset` and `limit` will contain their respective default values.
+
+
+Note that while Gangplank will include the body parameter, `body-parser` or another similar middleware must be run before `app.use(gangplank.requests(options));` in order for the body content to be accessible.  If the body is not parsed, it will not be found and will likely fail validation due to a missing parameter.
 
 ## Request validation
 // TODO
 
 ## Response validation
 // TODO
+
+## Default Error Handling
+Gangplank provides a default error handler
 
 ## Custom Error handling
 // TODO
