@@ -2,7 +2,7 @@
 
 ### Design Philosophy
 
-This project has grown out of our need to design web APIs "top-down" using Swagger and then implement them with ExpressJs in Node.  Gangplank was our solution to automatically validating routes and parameters based on the `swagger.json` spec. Doing so facilitates thin route handlers while maintaining robust, heavily tested, reusable validation logic.
+This project has grown out of our need to design web APIs "top-down" using Swagger and then implement them with ExpressJs in Node.  Gangplank was our solution for automatically validating routes and parameters based on the `swagger.json` spec. Doing so facilitates thin route handlers while maintaining robust, heavily tested, reusable validation logic.
 
 If this is your first time contributing to an open source project, thanks for taking the time to make this project better!  We want your experience to be a positive one, so here are some lists of things that we are and are not looking for as far as changes go:
 
