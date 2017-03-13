@@ -50,7 +50,10 @@ describe('date and datetime tests', function () {
 		app.use(bodyParser.json());
 		app.use(gangplank.requests({ swaggerDefinition }));
 		app.get('/test', (req, res) => {
-			const status = req.gangplank.params.date instanceof Date && req.gangplank.params.datetime instanceof Date ? 200 : 400;
+			const status =
+				req.gangplank.params.date instanceof Date && req.gangplank.params.datetime instanceof Date ?
+				200 :
+				400;
 			res.sendStatus(status);
 		});
 
@@ -60,6 +63,6 @@ describe('date and datetime tests', function () {
 			// ASSERT
 			assert.equal(res.statusCode, 200);
 			done();
-		})
+		});
 	});
 });

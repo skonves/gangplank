@@ -82,7 +82,7 @@ describe('default query parameter', function () {
 		});
 		app.use((err, req, res, next) => {
 			res.status(400).json(err);
-		})
+		});
 
 		// ACT
 		request(app).get('/test').end((err, res) => {
@@ -135,7 +135,7 @@ describe('default query parameter', function () {
 		});
 		app.use((err, req, res, next) => {
 			res.status(400).json(err);
-		})
+		});
 
 		// ACT
 		request(app).get('/test').end((err, res) => {
@@ -188,7 +188,7 @@ describe('default query parameter', function () {
 		});
 		app.use((err, req, res, next) => {
 			res.status(400).json(err);
-		})
+		});
 
 		// ACT
 		request(app).get('/test').end((err, res) => {
@@ -241,7 +241,7 @@ describe('default query parameter', function () {
 		});
 		app.use((err, req, res, next) => {
 			res.status(400).json(err);
-		})
+		});
 
 		// ACT
 		request(app).get('/test').end((err, res) => {

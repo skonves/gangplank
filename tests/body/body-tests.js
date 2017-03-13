@@ -52,7 +52,7 @@ describe('Body params', function () {
 	app.use(bodyParser.json());
 	app.use(gangplank.requests(options));
 	app.post('/test', (req, res) => {
-		res.json({ message: "ASDF" });
+		res.json({ message: 'ASDF' });
 	});
 	app.use(gangplank.errorHandler);
 
@@ -73,7 +73,7 @@ describe('Body params', function () {
 			assert.ok(res.body);
 			assert.equal(res.statusCode, expectedStatusCode, JSON.stringify(res.body));
 			done();
-		})
+		});
 	});
 
 	it('rejects invalid request', function (done) {
@@ -93,6 +93,6 @@ describe('Body params', function () {
 			assert.ok(res.body);
 			assert.equal(res.statusCode, expectedStatusCode, JSON.stringify(res.body));
 			done();
-		})
+		});
 	});
 });

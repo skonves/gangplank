@@ -38,7 +38,7 @@ describe('request validator', function () {
 	};
 	app.use(gangplank.requests(options));
 	app.get('/test', (req, res) => {
-		res.json({ message: "ASDF" });
+		res.json({ message: 'ASDF' });
 	});
 	app.use(gangplank.errorHandler);
 
@@ -54,7 +54,7 @@ describe('request validator', function () {
 			assert.ok(res.body);
 			assert.equal(res.statusCode, expectedStatusCode, JSON.stringify(res.body));
 			done();
-		})
+		});
 	});
 
 	it('rejects request for undefined route', function (done) {
@@ -70,7 +70,7 @@ describe('request validator', function () {
 			assert.equal(res.statusCode, expectedStatusCode);
 
 			done();
-		})
+		});
 	});
 
 	it('rejects request missing required parameter', function (done) {
@@ -86,7 +86,7 @@ describe('request validator', function () {
 			assert.equal(res.statusCode, expectedStatusCode);
 
 			done();
-		})
+		});
 	});
 });
 
@@ -132,7 +132,7 @@ describe('response validator', function () {
 		const app = express();
 		app.use(gangplank.responses({ swaggerDefinition }));
 		app.get('/test', (req, res) => {
-			res.json({ message: "valid string valid" });
+			res.json({ message: 'valid string valid' });
 		});
 		app.use(gangplank.errorHandler);
 
@@ -146,7 +146,7 @@ describe('response validator', function () {
 			assert.ok(res.body);
 			assert.equal(res.statusCode, expectedStatusCode, JSON.stringify(swaggerDefinition, null, '  '));
 			done();
-		})
+		});
 	});
 
 	it('rejects response with invalid body', function (done) {
@@ -164,7 +164,7 @@ describe('response validator', function () {
 		const app = express();
 		app.use(gangplank.responses({ swaggerDefinition }));
 		app.get('/test', (req, res) => {
-			res.json({ message: "this is not a number" });
+			res.json({ message: 'this is not a number' });
 		});
 		app.use(gangplank.errorHandler);
 
@@ -178,7 +178,7 @@ describe('response validator', function () {
 			assert.ok(res.body);
 			assert.equal(res.statusCode, expectedStatusCode, JSON.stringify(swaggerDefinition, null, '  '));
 			done();
-		})
+		});
 	});
 
 	it('rejects response with unexpected body', function (done) {
@@ -189,7 +189,7 @@ describe('response validator', function () {
 		const app = express();
 		app.use(gangplank.responses({ swaggerDefinition }));
 		app.get('/test', (req, res) => {
-			res.json({ message: "this is not a number" });
+			res.json({ message: 'this is not a number' });
 		});
 		app.use(gangplank.errorHandler);
 
@@ -203,7 +203,7 @@ describe('response validator', function () {
 			assert.ok(res.body);
 			assert.equal(res.statusCode, expectedStatusCode, JSON.stringify(swaggerDefinition, null, '  '));
 			done();
-		})
+		});
 	});
 
 	it('rejects response with missing body', function (done) {
@@ -235,7 +235,7 @@ describe('response validator', function () {
 			assert.ok(res.body.errors);
 			assert.equal(res.statusCode, expectedStatusCode, res.text);
 			done();
-		})
+		});
 	});
 
 	it('rejects response with invalid header', function (done) {
@@ -264,7 +264,7 @@ describe('response validator', function () {
 			assert.ok(res.body.errors);
 			assert.equal(res.statusCode, expectedStatusCode);
 			done();
-		})
+		});
 	});
 
 	it('rejects response with missing header', function (done) {
@@ -293,6 +293,6 @@ describe('response validator', function () {
 			assert.ok(res.body.errors);
 			assert.equal(res.statusCode, expectedStatusCode);
 			done();
-		})
+		});
 	});
 });
