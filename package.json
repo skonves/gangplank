@@ -4,7 +4,7 @@
   "description": "Robust, unopinionated, spec-driven validation for Swagger and Express APIs",
   "main": "index.js",
   "scripts": {
-    "cover": "cd lib && istanbul cover ../node_modules/mocha/bin/_mocha *.js -R ../tests --coverage && istanbul check-coverage --statement 85 --function 85 --line 85 --branch 75",
+    "cover": "cd lib && istanbul cover ../node_modules/mocha/bin/_mocha *.js -R ../tests --coverage && istanbul check-coverage --statement 85 --function 85 --line 85 --branch 70",
     "lint": "eslint ./lib ./tests",
     "lintfix": "eslint --fix ./lib ./tests",
     "test": "mocha ./tests"
