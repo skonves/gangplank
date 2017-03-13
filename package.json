@@ -4,6 +4,8 @@
   "description": "Robust, unopinionated, spec-driven validation for Swagger and Express APIs",
   "main": "index.js",
   "scripts": {
+    "lint": "eslint ./lib ./tests",
+    "lintfix": "eslint --fix ./lib ./tests",
     "test": "mocha ./tests"
   },
   "keywords": [
@@ -16,6 +18,7 @@
   "devDependencies": {
     "body-parser": "^1.15.2",
     "chai": "^3.5.0",
+    "eslint": "^3.17.1",
     "express": "^4.14.0",
     "mocha": "^3.2.0",
     "superagent": "^3.3.1",
