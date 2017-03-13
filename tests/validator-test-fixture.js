@@ -23,7 +23,7 @@ describe('validator', function () {
 			const definitions = null;
 
 			// Act
-			const result = sut.validateValue(value, parameter.schema, definitions);
+			const result = sut.validateValue(value, parameter.schema, { definitions });
 
 			// Assert
 			assert.lengthOf(result.errors, expectedErrorCount);
@@ -49,7 +49,7 @@ describe('validator', function () {
 			};
 
 			// Act
-			const result = sut.validateValue(value, parameter.schema, definitions);
+			const result = sut.validateValue(value, parameter.schema, { definitions });
 
 			// Assert
 			assert.lengthOf(result.errors, expectedErrorCount);
@@ -81,7 +81,7 @@ describe('validator', function () {
 			};
 
 			// Act
-			const result = sut.validateValue(value, parameter.schema, definitions);
+			const result = sut.validateValue(value, parameter.schema, { definitions });
 
 			// Assert
 			assert.lengthOf(result.errors, expectedErrorCount);
