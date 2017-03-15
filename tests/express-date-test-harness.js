@@ -34,7 +34,7 @@ describe('date and datetime tests', function () {
 							in: 'query',
 							description: 'name',
 							type: 'string',
-							format: 'datetime',
+							format: 'date-time',
 							required: false
 						}
 					],
