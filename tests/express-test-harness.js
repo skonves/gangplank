@@ -90,209 +90,209 @@ describe('request validator', function () {
 	});
 });
 
-describe('response validator', function () {
-	// SETUP
-	const baseSwagger = {
-		swagger: '2.0',
-		info: { version: '1.0.0', title: 'TEST' },
-		paths: {
-			'/test': {
-				get: {
-					responses: {
-						'200': {
-							description: 'test'
-						}
-					},
-					parameters: [
-						{
-							name: 'q',
-							in: 'query',
-							description: 'name',
-							type: 'string',
-							required: true
-						}
-					]
-				}
-			}
-		}
-	};
+// describe('response validator', function () {
+// 	// SETUP
+// 	const baseSwagger = {
+// 		swagger: '2.0',
+// 		info: { version: '1.0.0', title: 'TEST' },
+// 		paths: {
+// 			'/test': {
+// 				get: {
+// 					responses: {
+// 						'200': {
+// 							description: 'test'
+// 						}
+// 					},
+// 					parameters: [
+// 						{
+// 							name: 'q',
+// 							in: 'query',
+// 							description: 'name',
+// 							type: 'string',
+// 							required: true
+// 						}
+// 					]
+// 				}
+// 			}
+// 		}
+// 	};
 
-	it('permits valid response', function (done) {
-		// ARRANGE
-		let swaggerDefinition = clone(baseSwagger);
-		swaggerDefinition.paths['/test'].get.responses['200'].schema = {
-			type: 'object',
-			required: ['message'],
-			properties:
-			{
-				message: { type: 'string' }
-			}
-		};
+// 	it('permits valid response', function (done) {
+// 		// ARRANGE
+// 		let swaggerDefinition = clone(baseSwagger);
+// 		swaggerDefinition.paths['/test'].get.responses['200'].schema = {
+// 			type: 'object',
+// 			required: ['message'],
+// 			properties:
+// 			{
+// 				message: { type: 'string' }
+// 			}
+// 		};
 
-		const app = express();
-		app.use(gangplank.responses({ swaggerDefinition }));
-		app.get('/test', (req, res) => {
-			res.json({ message: 'valid string valid' });
-		});
-		app.use(gangplank.errorHandler);
+// 		const app = express();
+// 		app.use(gangplank.responses({ swaggerDefinition }));
+// 		app.get('/test', (req, res) => {
+// 			res.json({ message: 'valid string valid' });
+// 		});
+// 		app.use(gangplank.errorHandler);
 
-		const expectedStatusCode = 200;
+// 		const expectedStatusCode = 200;
 
-		// ACT
-		request(app).get('/test?q=asdf').end((err, res) => {
+// 		// ACT
+// 		request(app).get('/test?q=asdf').end((err, res) => {
 
-			// ASSERT
-			assert.notOk(err);
-			assert.ok(res.body);
-			assert.equal(res.statusCode, expectedStatusCode, JSON.stringify(swaggerDefinition, null, '  '));
-			done();
-		});
-	});
+// 			// ASSERT
+// 			assert.notOk(err);
+// 			assert.ok(res.body);
+// 			assert.equal(res.statusCode, expectedStatusCode, JSON.stringify(swaggerDefinition, null, '  '));
+// 			done();
+// 		});
+// 	});
 
-	it('rejects response with invalid body', function (done) {
-		// ARRANGE
-		let swaggerDefinition = clone(baseSwagger);
-		swaggerDefinition.paths['/test'].get.responses['200'].schema = {
-			type: 'object',
-			required: ['message'],
-			properties:
-			{
-				message: { type: 'number' }
-			}
-		};
+// 	it('rejects response with invalid body', function (done) {
+// 		// ARRANGE
+// 		let swaggerDefinition = clone(baseSwagger);
+// 		swaggerDefinition.paths['/test'].get.responses['200'].schema = {
+// 			type: 'object',
+// 			required: ['message'],
+// 			properties:
+// 			{
+// 				message: { type: 'number' }
+// 			}
+// 		};
 
-		const app = express();
-		app.use(gangplank.responses({ swaggerDefinition }));
-		app.get('/test', (req, res) => {
-			res.json({ message: 'this is not a number' });
-		});
-		app.use(gangplank.errorHandler);
+// 		const app = express();
+// 		app.use(gangplank.responses({ swaggerDefinition }));
+// 		app.get('/test', (req, res) => {
+// 			res.json({ message: 'this is not a number' });
+// 		});
+// 		app.use(gangplank.errorHandler);
 
-		const expectedStatusCode = 500;
+// 		const expectedStatusCode = 500;
 
-		// ACT
-		request(app).get('/test?q=asdf').end((err, res) => {
+// 		// ACT
+// 		request(app).get('/test?q=asdf').end((err, res) => {
 
-			// ASSERT
-			assert.notOk(err);
-			assert.ok(res.body);
-			assert.equal(res.statusCode, expectedStatusCode, JSON.stringify(swaggerDefinition, null, '  '));
-			done();
-		});
-	});
+// 			// ASSERT
+// 			assert.notOk(err);
+// 			assert.ok(res.body);
+// 			assert.equal(res.statusCode, expectedStatusCode, JSON.stringify(swaggerDefinition, null, '  '));
+// 			done();
+// 		});
+// 	});
 
-	it('rejects response with unexpected body', function (done) {
-		// ARRANGE
-		let swaggerDefinition = clone(baseSwagger);
-		swaggerDefinition.paths['/test'].get.responses['200'].schema = undefined;
+// 	it('rejects response with unexpected body', function (done) {
+// 		// ARRANGE
+// 		let swaggerDefinition = clone(baseSwagger);
+// 		swaggerDefinition.paths['/test'].get.responses['200'].schema = undefined;
 
-		const app = express();
-		app.use(gangplank.responses({ swaggerDefinition }));
-		app.get('/test', (req, res) => {
-			res.json({ message: 'this is not a number' });
-		});
-		app.use(gangplank.errorHandler);
+// 		const app = express();
+// 		app.use(gangplank.responses({ swaggerDefinition }));
+// 		app.get('/test', (req, res) => {
+// 			res.json({ message: 'this is not a number' });
+// 		});
+// 		app.use(gangplank.errorHandler);
 
-		const expectedStatusCode = 500;
+// 		const expectedStatusCode = 500;
 
-		// ACT
-		request(app).get('/test?q=asdf').end((err, res) => {
+// 		// ACT
+// 		request(app).get('/test?q=asdf').end((err, res) => {
 
-			// ASSERT
-			assert.notOk(err);
-			assert.ok(res.body);
-			assert.equal(res.statusCode, expectedStatusCode, JSON.stringify(swaggerDefinition, null, '  '));
-			done();
-		});
-	});
+// 			// ASSERT
+// 			assert.notOk(err);
+// 			assert.ok(res.body);
+// 			assert.equal(res.statusCode, expectedStatusCode, JSON.stringify(swaggerDefinition, null, '  '));
+// 			done();
+// 		});
+// 	});
 
-	it('rejects response with missing body', function (done) {
-		// ARRANGE
-		let swaggerDefinition = clone(baseSwagger);
-		swaggerDefinition.paths['/test'].get.responses['200'].schema = {
-			type: 'object',
-			required: ['message'],
-			properties:
-			{
-				message: { type: 'number' }
-			}
-		};
+// 	it('rejects response with missing body', function (done) {
+// 		// ARRANGE
+// 		let swaggerDefinition = clone(baseSwagger);
+// 		swaggerDefinition.paths['/test'].get.responses['200'].schema = {
+// 			type: 'object',
+// 			required: ['message'],
+// 			properties:
+// 			{
+// 				message: { type: 'number' }
+// 			}
+// 		};
 
-		const app = express();
-		app.use(gangplank.responses({ swaggerDefinition }));
-		app.get('/test', (req, res) => {
-			res.status(200).send();
-		});
-		app.use(gangplank.errorHandler);
+// 		const app = express();
+// 		app.use(gangplank.responses({ swaggerDefinition }));
+// 		app.get('/test', (req, res) => {
+// 			res.status(200).send();
+// 		});
+// 		app.use(gangplank.errorHandler);
 
-		const expectedStatusCode = 500;
+// 		const expectedStatusCode = 500;
 
-		// ACT
-		request(app).get('/test?q=asdf').end((err, res) => {
+// 		// ACT
+// 		request(app).get('/test?q=asdf').end((err, res) => {
 
-			// ASSERT
-			assert.notOk(err);
-			assert.ok(res.body.errors);
-			assert.equal(res.statusCode, expectedStatusCode, res.text);
-			done();
-		});
-	});
+// 			// ASSERT
+// 			assert.notOk(err);
+// 			assert.ok(res.body.errors);
+// 			assert.equal(res.statusCode, expectedStatusCode, res.text);
+// 			done();
+// 		});
+// 	});
 
-	it('rejects response with invalid header', function (done) {
-		// ARRANGE
-		let swaggerDefinition = clone(baseSwagger);
-		swaggerDefinition.paths['/test'].get.responses['200'].headers = {
-			'X-CustomHeader': {
-				type: 'integer'
-			}
-		};
+// 	it('rejects response with invalid header', function (done) {
+// 		// ARRANGE
+// 		let swaggerDefinition = clone(baseSwagger);
+// 		swaggerDefinition.paths['/test'].get.responses['200'].headers = {
+// 			'X-CustomHeader': {
+// 				type: 'integer'
+// 			}
+// 		};
 
-		const app = express();
-		app.use(gangplank.responses({ swaggerDefinition }));
-		app.get('/test', (req, res) => {
-			res.set('X-CustomHeader', '{"value": "1337"}').status(200).send();
-		});
-		app.use(gangplank.errorHandler);
+// 		const app = express();
+// 		app.use(gangplank.responses({ swaggerDefinition }));
+// 		app.get('/test', (req, res) => {
+// 			res.set('X-CustomHeader', '{"value": "1337"}').status(200).send();
+// 		});
+// 		app.use(gangplank.errorHandler);
 
-		const expectedStatusCode = 500;
+// 		const expectedStatusCode = 500;
 
-		// ACT
-		request(app).get('/test?q=asdf').end((err, res) => {
+// 		// ACT
+// 		request(app).get('/test?q=asdf').end((err, res) => {
 
-			// ASSERT
-			assert.notOk(err);
-			assert.ok(res.body.errors);
-			assert.equal(res.statusCode, expectedStatusCode);
-			done();
-		});
-	});
+// 			// ASSERT
+// 			assert.notOk(err);
+// 			assert.ok(res.body.errors);
+// 			assert.equal(res.statusCode, expectedStatusCode);
+// 			done();
+// 		});
+// 	});
 
-	it('rejects response with missing header', function (done) {
-		// ARRANGE
-		let swaggerDefinition = clone(baseSwagger);
-		swaggerDefinition.paths['/test'].get.responses['200'].headers = {
-			'X-CustomHeader': {
-				type: 'integer'
-			}
-		};
+// 	it('rejects response with missing header', function (done) {
+// 		// ARRANGE
+// 		let swaggerDefinition = clone(baseSwagger);
+// 		swaggerDefinition.paths['/test'].get.responses['200'].headers = {
+// 			'X-CustomHeader': {
+// 				type: 'integer'
+// 			}
+// 		};
 
-		const app = express();
-		app.use(gangplank.responses({ swaggerDefinition }));
-		app.get('/test', (req, res) => {
-			res.set('X-AnotherCustomHeader', 'string value').status(200).send();
-		});
-		app.use(gangplank.errorHandler);
+// 		const app = express();
+// 		app.use(gangplank.responses({ swaggerDefinition }));
+// 		app.get('/test', (req, res) => {
+// 			res.set('X-AnotherCustomHeader', 'string value').status(200).send();
+// 		});
+// 		app.use(gangplank.errorHandler);
 
-		const expectedStatusCode = 500;
+// 		const expectedStatusCode = 500;
 
-		// ACT
-		request(app).get('/test?q=asdf').end((err, res) => {
+// 		// ACT
+// 		request(app).get('/test?q=asdf').end((err, res) => {
 
-			// ASSERT
-			assert.notOk(err);
-			assert.ok(res.body.errors);
-			assert.equal(res.statusCode, expectedStatusCode);
-			done();
-		});
-	});
-});
+// 			// ASSERT
+// 			assert.notOk(err);
+// 			assert.ok(res.body.errors);
+// 			assert.equal(res.statusCode, expectedStatusCode);
+// 			done();
+// 		});
+// 	});
+// });
