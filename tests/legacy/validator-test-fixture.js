@@ -3,7 +3,7 @@
 const assert = require('chai').assert;
 const expect = require('chai').expect;
 
-const sut = require('../lib/validator');
+const sut = require('../../lib/validator');
 
 describe('validator', function () {
 	describe('validateValue', function () {

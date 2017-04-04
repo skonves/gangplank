@@ -6,7 +6,7 @@ const bodyParser = require('body-parser');
 const express = require('express');
 const request = require('supertest');
 
-const gangplank = require('../index');
+const gangplank = require('../../index');
 
 function clone(obj) {
 	return JSON.parse(JSON.stringify(obj));
