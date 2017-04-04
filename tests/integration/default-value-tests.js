@@ -1,12 +1,11 @@
 'use strict';
 
 const assert = require('chai').assert;
-const expect = require('chai').expect;
 const bodyParser = require('body-parser');
 const express = require('express');
 const request = require('supertest');
 
-const gangplank = require('../index');
+const gangplank = require('../../index');
 
 function clone(obj, type, required, defaultValue) {
 	const spec = JSON.parse(JSON.stringify(obj));
@@ -44,27 +43,26 @@ describe('default query parameter', function () {
 		// ARRANGE
 		const spec = clone(baseSpec, 'integer', false, 1337);
 
+		console.log(JSON.stringify(spec));
+
 		const app = express();
 		app.use(bodyParser.json());
 		app.use(gangplank.requests({ swaggerDefinition: spec }));
 		app.get('/test', (req, res) => {
 
 			// ASSERT A
-			try {
-				assert.strictEqual(req.gangplank.params.sut, 1337);
-				res.send();
-			} catch (ex) {
-				res.status(500).json({ message: ex.message });
-			}
+			// try {
+			console.log(req.gangplank);
+			assert.strictEqual(req.gangplank.params.sut, 1337);
+			done();
+			// 	res.send();
+			// } catch (ex) {
+			// 	res.status(500).json({ message: ex.message });
+			// }
 		});
 
 		// ACT
-		request(app).get('/test').end((err, res) => {
-
-			// ASSERT B
-			assert.equal(res.statusCode, 200, res.body.message);
-			done();
-		});
+		request(app).get('/test').end(() => { });
 	});
 
 	it('errors on a missing required integer', function (done) {
