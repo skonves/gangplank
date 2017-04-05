@@ -43,7 +43,7 @@ describe('default query parameter', function () {
 		// ARRANGE
 		const spec = clone(baseSpec, 'integer', false, 1337);
 
-		console.log(JSON.stringify(spec));
+		//console.log(JSON.stringify(spec));
 
 		const app = express();
 		app.use(bodyParser.json());
@@ -52,7 +52,7 @@ describe('default query parameter', function () {
 
 			// ASSERT A
 			// try {
-			console.log(req.gangplank);
+			//console.log(req.gangplank);
 			assert.strictEqual(req.gangplank.params.sut, 1337);
 			done();
 			// 	res.send();
@@ -74,7 +74,7 @@ describe('default query parameter', function () {
 		app.use(gangplank.requests({ swaggerDefinition: spec }));
 		app.get('/test', (req, res) => {
 
-			console.log(req.gangplank.errors);
+			//console.log(req.gangplank.errors);
 
 			res.status(500).send();
 		});
@@ -127,7 +127,7 @@ describe('default query parameter', function () {
 		app.use(gangplank.requests({ swaggerDefinition: spec }));
 		app.get('/test', (req, res) => {
 
-			console.log(req.gangplank.errors);
+			//console.log(req.gangplank.errors);
 
 			res.status(500).send();
 		});
@@ -180,7 +180,7 @@ describe('default query parameter', function () {
 		app.use(gangplank.requests({ swaggerDefinition: spec }));
 		app.get('/test', (req, res) => {
 
-			console.log(req.gangplank.errors);
+			//console.log(req.gangplank.errors);
 
 			res.status(500).send();
 		});
@@ -233,7 +233,7 @@ describe('default query parameter', function () {
 		app.use(gangplank.requests({ swaggerDefinition: spec }));
 		app.get('/test', (req, res) => {
 
-			console.log(req.gangplank.errors);
+			//console.log(req.gangplank.errors);
 
 			res.status(500).send();
 		});
