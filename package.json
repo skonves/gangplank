@@ -1,6 +1,6 @@
 {
   "name": "gangplank",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Robust, unopinionated, spec-driven validation for Swagger and Express APIs",
   "main": "index.js",
   "scripts": {
