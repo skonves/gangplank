@@ -1,3 +1,7 @@
+[![travis](https://img.shields.io/travis/DriveTimeInc/gangplank.svg)](https://travis-ci.org/drivetimeinc/gangplank)
+[![npm](https://img.shields.io/npm/v/gangplank.svg)](https://www.npmjs.com/package/gangplank)
+[![npm](https://img.shields.io/npm/dm/gangplank.svg)](https://www.npmjs.com/package/gangplank)
+
 # Gangplank
 Robust, unopinionated, spec-driven validation for Swagger and Express APIs
 
