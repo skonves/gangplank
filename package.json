@@ -16,6 +16,10 @@
   ],
   "author": "Steve Konves",
   "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/DriveTimeInc/gangplank/issues"
+  },
+  "repository": "DriveTimeInc/gangplank",
   "devDependencies": {
     "body-parser": "^1.15.2",
     "chai": "^3.5.0",
