@@ -97,7 +97,7 @@ describe('middleware', function () {
 		const url = '/not-a-defined-url';
 		const query = { id: 'asdf' };
 
-		const expectedResult = { code: 'GANGPLANK_ERRORS' };
+		const expectedResult = { code: 'GANGPLANK_ERRORS', scope: 'REQUEST' };
 
 		// ACT
 		app.use(sut(options));

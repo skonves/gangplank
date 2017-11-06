@@ -26,7 +26,7 @@ describe('error-handler', function () {
 				req.gangplank = gangplank;
 
 				// ACT
-				next({ code: 'GANGPLANK_ERRORS' });
+				next({ code: 'GANGPLANK_ERRORS', scope: 'REQUEST' });
 			});
 
 			app.use((err, req, res, next) => {
@@ -112,7 +112,7 @@ describe('error-handler', function () {
 				req.gangplank = gangplank;
 
 				// ACT
-				next({ code: 'GANGPLANK_ERRORS' });
+				next({ code: 'GANGPLANK_ERRORS', scope: 'REQUEST' });
 			});
 
 			app.use(sut);
@@ -166,7 +166,7 @@ describe('error-handler', function () {
 				req.gangplank = gangplank;
 
 				// ACT
-				next({ code: 'GANGPLANK_ERRORS' });
+				next({ code: 'GANGPLANK_ERRORS', scope: 'REQUEST' });
 			});
 
 			app.use(sut);
@@ -224,7 +224,7 @@ describe('error-handler', function () {
 				req.gangplank = gangplank;
 
 				// ACT
-				next({ code: 'GANGPLANK_ERRORS' });
+				next({ code: 'GANGPLANK_ERRORS', scope: 'REQUEST' });
 			});
 
 			app.use(sut);
@@ -280,7 +280,7 @@ describe('error-handler', function () {
 				req.gangplank = gangplank;
 
 				// ACT
-				next({ code: 'GANGPLANK_ERRORS' });
+				next({ code: 'GANGPLANK_ERRORS', scope: 'REQUEST' });
 			});
 
 			app.use(sut);
@@ -338,7 +338,7 @@ describe('error-handler', function () {
 				req.gangplank = gangplank;
 
 				// ACT
-				next({ code: 'GANGPLANK_ERRORS' });
+				next({ code: 'GANGPLANK_ERRORS', scope: 'REQUEST' });
 			});
 
 			app.use(sut);
@@ -384,7 +384,7 @@ describe('error-handler', function () {
 				req.gangplank = gangplank;
 
 				// ACT
-				next({ code: 'GANGPLANK_ERRORS' });
+				next({ code: 'GANGPLANK_ERRORS', scope: 'REQUEST' });
 			});
 
 			app.use(sut);
